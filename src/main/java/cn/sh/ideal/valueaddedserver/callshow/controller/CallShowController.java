@@ -113,10 +113,14 @@ public class CallShowController {
                     model.setViewName("/" + prefix + "/tishi");
                     return model;
                 }
-                String certNum = String.valueOf(custInfoMap.get("certNum"));//身份证
-                String custName = String.valueOf(custInfoMap.get("custName"));//客户名
-                String custType = String.valueOf(custInfoMap.get("custType"));//证件类型
-                if (custType.indexOf("1000") < -1) {//不为政企用户时
+                String certNum = String.valueOf(custInfoMap.get("certNum"));
+                //身份证
+                String custName = String.valueOf(custInfoMap.get("custName"));
+                //客户名
+                String custType = String.valueOf(custInfoMap.get("custType"));
+                //证件类型
+                if (custType.indexOf("1000") < -1) {
+                    //不为政企用户时
                     model.addObject("message", "尊敬的客户,该业务仅限公众客户用户办理，您可通过您的专属客户经理或咨询“在线客服”获取服务。");
                     model.setViewName("/" + prefix + "/tishi");
                     return model;
@@ -230,7 +234,8 @@ public class CallShowController {
         String deviceNo = request.getParameter("deviceNo");
         String userName = request.getParameter("userName");
         String userNumber = request.getParameter("userNumber");
-        String type = request.getParameter("type"); //1为开通来电显示  2为关闭来电显示
+        String type = request.getParameter("type");
+        //1为开通来电显示  2为关闭来电显示
 
         //1.判断session是否过期
         if (StringUtil.isEmpty(custId) || StringUtil.isEmpty(userId)) {
