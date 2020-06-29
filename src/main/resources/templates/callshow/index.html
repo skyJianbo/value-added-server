@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>中国电信上海客服</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <script src="/valueadded/js/callshow/template.js?v=0.0.1" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<div class="bg">
+    <h4 class="f16 m-b10">来电显示</h4>
+    <ul class="xinxi m-b20">
+        <li>
+            <p class="b f16"><i><img src="/valueadded/images/callshow/shibh.png"/></i><span>选择受理设备</span></p>
+        </li>
+
+        <li th:each="p : ${maplist.phoneList}">
+            <ul class="xinxiul">
+
+                <li class="pwid" th:if="${p.paymentModeCd == '1200'}">
+                    <p class="pwid"><em class="xuan"></em><em th:text="${p.accNumTomi}"></em><em th:text="${p.accNum}" style="display: none"></em></p>
+                    <p class="t-r f12 flex-1">后付费支持受理</p>
+                </li>
+
+                <li class="noclick" th:if="${p.paymentModeCd != '1200'}">
+                    <p class="pwid"><em class="xuan"></em><em th:text="${p.accNumTomi}"></em><em th:text="${p.accNum}" style="display: none"></em></p>
+                    <p class="t-r f12 flex-1">非后付费不支持受理</p>
+                </li>
+            </ul>
+
+        </li>
+
+    </ul>
+
+    <div class="btn btn2 m-b20" onclick="queryInfo()" >
+        <p class="btns btnsl" >确 认</p>
+    </div>
+
+    <div class="bian"></div>
+
+    <ul class="fot">
+        <li>
+            <label><img src="/valueadded/images/callshow/tips.png"></label>
+            <p class="c3 v-m">温馨提示</p>
+        </li>
+        <li>
+            <label>1、</label>
+            <p>来电显示业务是指能将来电号码自动显示于话机屏幕上，使您通过来电号码，识别来电人身份，从容选择是否接听。来电号码，一目了然，无人接听，号码保留。</p>
+        </li>
+        <li>
+            <label>2、</label>
+            <p class="c2">中国电信上海客服微信公众号仅接受私人公客客户名下后付费设备办理来电显示业务，政企客户或预付费客户可致电10000号或至营业厅办理。</p>
+        </li>
+
+        <li>
+            <label>3、</label>
+            <p>凡具有号码显示功能的电话机或在普通话机上加装来电显示器的，当有电话打入时，即可在来电显示器上显示来电号码、来电日期、来电时间等信息，并可进行存储。</p>
+        </li>
+        <li>
+            <label>4、</label>
+            <p>来电显示功能适用于直线电话，预付费电话，ISDN，CENTREX用户，小交换机PBX，广域集中用户交换机WAC，30B+D。</p>
+        </li>
+        <li>
+            <label>5、</label>
+            <p>“来电显示”的实现范围为上海本地网；对于国际、语音信箱、Internet、DID等方向的来电暂不能显示；国内长途、郊县方向的来电不确保能显示成功；小交换机用户的来电显示为该交换机的引示号。</p>
+        </li>
+    </ul>
+
+</div>
+
+<div class="pellets" id="alertpage1">
+    <div class="meng"></div>
+    <div class="tcon">
+        <div class="tcon-con">
+            <div class="tcon-conp t-c m-b10">
+                <p class="ptext"></p>
+            </div>
+            <div class="btn pellets_btn">
+                <p class="btns btnsl x">确 定</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        xuanz('.xuan', 'xuaned');
+    })
+    function queryInfo() {
+        if (!$(".xuan").hasClass('xuaned')) {
+            showT('#alertpage1', '尊敬的客户<br />请选择一个设备号进行办理<br />');
+            return;
+        }
+        ;
+        var deviceNo = $('.xuan.xuaned').next('em').next('em').text();
+        console.log(deviceNo)
+
+        var datas = {"deviceNo": deviceNo};	//参数为json格式
+
+        var qryUrl = "/valueadded/callshow/query";
+        $.ajax({
+            type: "post",
+            url: qryUrl,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            datatype: "json",
+            data: datas,
+            success: function (result) {
+                console.log(result);
+                if (result.statusCode == 200) {
+                    window.location.href = "/valueadded/callshow/shwohandle?deviceNo=" + deviceNo;
+                } else {
+                    showT('#alertpage1', result.statusMessage);
+                }
+            },
+            error: function (result) {
+            }
+        });
+    }
+</script>
+
+</body>
+
+</html>

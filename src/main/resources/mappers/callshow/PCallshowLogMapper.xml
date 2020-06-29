@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.sh.ideal.valueaddedserver.callshow.mapper.PCallshowLogMapper" >
+  <resultMap id="BaseResultMap" type="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshowLog" >
+    <id column="AUTOID" property="autoid" jdbcType="INTEGER" />
+    <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="DEVICENO" property="deviceno" jdbcType="VARCHAR" />
+    <result column="METHODNAME" property="methodname" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AUTOID, OPENID, USERNAME, DEVICENO, METHODNAME, DESCRIPTION, STATUS, CREATETIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from P_CALLSHOW_LOG
+    where AUTOID = #{autoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from P_CALLSHOW_LOG
+    where AUTOID = #{autoid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshowLog" >
+    insert into P_CALLSHOW_LOG (AUTOID, OPENID, USERNAME, 
+      DEVICENO, METHODNAME, DESCRIPTION, 
+      STATUS, CREATETIME)
+    values (#{autoid,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{deviceno,jdbcType=VARCHAR}, #{methodname,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshowLog" >
+    insert into P_CALLSHOW_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        AUTOID,
+      <if test="openid != null" >
+        OPENID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="deviceno != null" >
+        DEVICENO,
+      </if>
+      <if test="methodname != null" >
+        METHODNAME,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+        CREATETIME,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      SEQ_P_CALLSHOWLOG.nextVal,
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceno != null" >
+        #{deviceno,jdbcType=VARCHAR},
+      </if>
+      <if test="methodname != null" >
+        #{methodname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      sysdate,
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshowLog" >
+    update P_CALLSHOW_LOG
+    <set >
+      <if test="openid != null" >
+        OPENID = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceno != null" >
+        DEVICENO = #{deviceno,jdbcType=VARCHAR},
+      </if>
+      <if test="methodname != null" >
+        METHODNAME = #{methodname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=DATE},
+      </if>
+    </set>
+    where AUTOID = #{autoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshowLog" >
+    update P_CALLSHOW_LOG
+    set OPENID = #{openid,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      DEVICENO = #{deviceno,jdbcType=VARCHAR},
+      METHODNAME = #{methodname,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=DATE}
+    where AUTOID = #{autoid,jdbcType=INTEGER}
+  </update>
+</mapper>

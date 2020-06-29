@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2010-2011 The myBatis Team
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<configuration>
+
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
+
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+	<!-- <property name="LOG_HOME" value="C:/interfaceLogs/api-gatewayServer" /> -->
+    <property name="LOG_HOME" value="/home/jstx5/webapp/log" />
+
+	<property name="AppName" value="semantic" />
+	
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+    <!-- Console 输出设置 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 不用彩色控制台输出 -->
+    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+        <!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+            <!--&lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    
+    
+    <!-- 按照每天生成debug.log日志文件 -->
+    <appender name="DAYDEBUG"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	 <Prudent>true</Prudent>
+         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/${AppName}_debug.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--单个日志文件最大容量-->
+            <maxFileSize>200MB</maxFileSize>
+            <!--日志文件保留天数-->
+			<maxHistory>30</maxHistory>
+			<!--日志文件最大不能超过容量-->
+			<totalSizeCap>6000MB</totalSizeCap>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} -%msg%n
+            </Pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    
+    <!-- 按照每天生成info.log日志文件 -->
+    <appender name="DAYINFO"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	 <Prudent>true</Prudent>
+         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/${AppName}_info.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--单个日志文件最大容量-->
+            <maxFileSize>200MB</maxFileSize>
+            <!--日志文件保留天数-->
+			<maxHistory>30</maxHistory>
+			<!--日志文件最大不能超过容量-->
+			<totalSizeCap>6000MB</totalSizeCap>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} -%msg%n
+            </Pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    
+    <!-- 按照每天生成error.log日志文件 -->
+    <appender name="DAYERROR"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	 <Prudent>true</Prudent>
+         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/${AppName}_error.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--单个日志文件最大容量-->
+            <maxFileSize>200MB</maxFileSize>
+            <!--日志文件保留天数-->
+			<maxHistory>30</maxHistory>
+			<!--日志文件最大不能超过容量-->
+			<totalSizeCap>6000MB</totalSizeCap>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} -%msg%n
+            </Pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    
+    
+    <!-- 按照每天生成debug.html日志文件 -->
+   <!-- <appender name="DAYDEBUG_HTML"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	 <Prudent>true</Prudent>
+         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;
+            <FileNamePattern>${LOG_HOME}/${AppName}_debug.log.%d{yyyy-MM-dd}.%i.html</FileNamePattern>
+            &lt;!&ndash;单个日志文件最大容量&ndash;&gt;
+            <maxFileSize>10MB</maxFileSize>
+            &lt;!&ndash;日志文件保留天数&ndash;&gt;
+			<maxHistory>30</maxHistory>
+			&lt;!&ndash;日志文件最大不能超过容量&ndash;&gt;
+			<totalSizeCap>6000MB</totalSizeCap>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">  
+           <pattern>
+       			&lt;!&ndash; %p%d%msg%M%F{32}%L &ndash;&gt;
+       			%d%thread%relative%level%logger%msg%M%F{32}%L
+           </pattern>  
+        </layout> 
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+          <level>debug</level>
+          <onMatch>ACCEPT</onMatch>
+          <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>-->
+    
+    <!-- 按照每天生成info.html日志文件 -->
+   <!-- <appender name="DAYINFO_HTML"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	 <Prudent>true</Prudent>
+         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;
+            <FileNamePattern>${LOG_HOME}/${AppName}_info.log.%d{yyyy-MM-dd}.%i.html</FileNamePattern>
+            &lt;!&ndash;单个日志文件最大容量&ndash;&gt;
+            <maxFileSize>10MB</maxFileSize>
+            &lt;!&ndash;日志文件保留天数&ndash;&gt;
+			<maxHistory>30</maxHistory>
+			&lt;!&ndash;日志文件最大不能超过容量&ndash;&gt;
+			<totalSizeCap>6000MB</totalSizeCap>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">  
+           <pattern>
+       			&lt;!&ndash; %p%d%msg%M%F{32}%L &ndash;&gt;
+       			%d%thread%relative%level%logger%msg%M%F{32}%L
+           </pattern>  
+        </layout> 
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+          <level>info</level>
+          <onMatch>ACCEPT</onMatch>
+          <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>-->
+    
+    
+    <!-- 按照每天生成error.html日志文件 -->
+    <!--<appender name="DAYERROR_HTML"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	 <Prudent>true</Prudent>
+         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;
+            <FileNamePattern>${LOG_HOME}/${AppName}_error.log.%d{yyyy-MM-dd}.%i.html</FileNamePattern>
+            &lt;!&ndash;单个日志文件最大容量&ndash;&gt;
+            <maxFileSize>10MB</maxFileSize>
+            &lt;!&ndash;日志文件保留天数&ndash;&gt;
+			<maxHistory>30</maxHistory>
+			&lt;!&ndash;日志文件最大不能超过容量&ndash;&gt;
+			<totalSizeCap>6000MB</totalSizeCap>
+        </rollingPolicy>
+       <layout class="ch.qos.logback.classic.html.HTMLLayout">  
+           <pattern>
+       			&lt;!&ndash; %p%d%msg%M%F{32}%L &ndash;&gt;
+       			%d%thread%relative%level%logger%msg%M%F{32}%L
+           </pattern>  
+       </layout> 
+       <filter class="ch.qos.logback.classic.filter.LevelFilter">
+          <level>error</level>
+          <onMatch>ACCEPT</onMatch>
+          <onMismatch>DENY</onMismatch>
+       </filter>
+    </appender>-->
+    
+    
+    
+    
+    <!--myibatis log configure-->
+    <logger name="com.apache.ibatis" level="TRACE"/>
+    <logger name="java.sql.Connection" level="DEBUG"/>
+    <logger name="java.sql.Statement" level="DEBUG"/>
+    <logger name="java.sql.PreparedStatement" level="DEBUG"/>
+    <logger name="cn.sh.ideal.valueaddedserver" level="DEBUG"/>
+
+
+    
+    
+   
+    <!-- 日志输出级别 ：TRACE < DEBUG < INFO < WARN < ERROR < FATAL 
+    	如果设置为 WARN ，则低于 WARN 的信息都不会输出。
+		Spring Boot 中默认配置 ERROR 、 WARN 和 INFO 级别的日志输出到控制台
+	-->
+    <root level="INFO">
+        <!-- <appender-ref ref="STDOUT" /> -->
+        <appender-ref ref="DAYDEBUG" />
+        <appender-ref ref="DAYINFO" />
+        <appender-ref ref="DAYERROR" />
+        
+      <!--  <appender-ref ref="DAYDEBUG_HTML" />
+        <appender-ref ref="DAYINFO_HTML" />
+        <appender-ref ref="DAYERROR_HTML" />-->
+    </root>
+    
+</configuration>

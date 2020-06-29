@@ -1,0 +1,158 @@
+                                            #########################################
+                                            #                                       #
+                                            #=============引导环境配置==============#
+                                            #                                       #
+                                            #########################################
+
+
+#########################################
+#
+#配置服务端口、contextPath信息 ServerProperties
+#配置context-path
+#
+#spring boot2.0之前，上下文的配置 server.context-path
+#spring boot2.0之后，上下文的配置改为了server.servlet.context-path
+#
+#########################################
+
+server:
+  servlet:
+    #context-path
+    context-path: /valueadded
+    session:
+      timeout: 1800
+
+  #服务端口
+  port: 8088
+  #tomcat配置
+  tomcat:
+    max-threads: 2000
+    min-spare-threads: 30
+    uri-encoding: utf-8
+
+
+
+
+#########################################
+#
+#spring配置
+#
+#
+#########################################
+
+spring:
+  ###配置session共享
+  session:
+      store-type: redis
+      redis:
+      namespace: evidence
+
+
+  #########################################
+  #
+  #异常配置，当出现 404 错误时, 直接抛出异常
+  #
+  #########################################
+  mvc:
+    throw-exception-if-no-handler-found: true
+    #将默认的favicon.ioc关闭
+    favicon:
+      enabled: false
+
+
+  #########################################
+  #
+  #设置内嵌tomcat上传文件大小
+  #
+  #########################################
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+
+
+  #########################################
+  #
+  #热部署配置
+  #
+  #
+  #########################################
+  devtools:
+    restart:
+      #热部署生效 true:非静态代码更改时重新启动服务器; false:禁用非静态代码更改时重新启动服务器
+      enabled: true
+      #classpath目录下的WEB-INF、/META-INF/maven、/META-INF/resources、/resources、
+      #/static、/public、/templates文件夹内容修改不重启
+      exclude: WEB-INF/**,static/**,templates/**
+      #少量文件不在classpath中，但您仍然可能需要查看这些addtional文件/路径以重新加载应用程序
+      additional-paths: templates/**
+      spring.devtools.restart.exclude: WEB-INF/**
+      #设置重启的目录,添加那个目录的文件需要restart（设置了该项配置，必须修改banner.txt才会触发热部署机制）
+      trigger-file: banner.txt
+
+
+
+  #########################################
+  #
+  #thymeleaf模板设置
+  #
+  #########################################
+  thymeleaf:
+    #模板的模式，支持 HTML, XML TEXT JAVASCRIPT
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    #开发时关闭缓存,不然没法看到实时页面
+    cache: false
+    #配置模板路径，默认是templates，可以不用配置
+    prefix: classpath:/templates
+    suffix: .html
+
+
+
+
+  #########################################
+  #
+  #启动banner设置
+  #
+  #########################################
+  main:
+    # 启动/关闭 (CONSOLE/OFF)springboot启动时的banner
+    banner-mode: CONSOLE
+
+
+
+
+  #########################################
+  #
+  #设置环境配置文件 active
+  #         dev：开发
+  #         test：测试
+  #         pro：正式
+  # include 动态加载自定义yml
+  #
+  #
+  #########################################
+  profiles:
+    active: dev
+    include: url
+
+
+
+
+#########################################
+#
+##Mybatis配置,官方参考：
+#http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
+#
+#########################################
+mybatis:
+  configuration:
+    # 开启驼峰格式
+    map-underscore-to-camel-case: true
+  # 所有的mapper映射文件
+  mapper-locations: classpath:mappers/**/*Mapper.xml
+  # 配置自动扫描包路径
+  typeAliasesPackage: cn.sh.ideal.value-added-server.**.model

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.sh.ideal.valueaddedserver.callshow.mapper.PCallshowMapper" >
+  <resultMap id="BaseResultMap" type="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshow" >
+    <id column="AUTOID" property="autoid" jdbcType="DECIMAL" />
+    <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+    <result column="DEVICENO" property="deviceno" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="USERNUMBER" property="usernumber" jdbcType="VARCHAR" />
+    <result column="CRMORDERNO" property="crmorderno" jdbcType="VARCHAR" />
+    <result column="SERIANUMBER" property="serianumber" jdbcType="VARCHAR" />
+    <result column="CRMSTATUS" property="crmstatus" jdbcType="VARCHAR" />
+    <result column="CRMRESP" property="crmresp" jdbcType="VARCHAR" />
+    <result column="BUSTYPE" property="bustype" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AUTOID, OPENID, DEVICENO, USERNAME, USERNUMBER, CRMORDERNO, SERIANUMBER, CRMSTATUS,CRMRESP,BUSTYPE,
+    CREATETIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from P_CALLSHOW
+    where AUTOID = #{autoid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from P_CALLSHOW
+    where AUTOID = #{autoid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshow" >
+    insert into P_CALLSHOW (AUTOID, OPENID, DEVICENO, 
+      USERNAME, USERNUMBER, CRMORDERNO, 
+      SERIANUMBER, CRMSTATUS, CREATETIME
+      )
+    values (#{autoid,jdbcType=DECIMAL}, #{openid,jdbcType=VARCHAR}, #{deviceno,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{usernumber,jdbcType=VARCHAR}, #{crmorderno,jdbcType=VARCHAR}, 
+      #{serianumber,jdbcType=VARCHAR}, #{crmstatus,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshow" >
+    insert into P_CALLSHOW
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        AUTOID,
+      <if test="openid != null" >
+        OPENID,
+      </if>
+      <if test="deviceno != null" >
+        DEVICENO,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="usernumber != null" >
+        USERNUMBER,
+      </if>
+      <if test="crmorderno != null" >
+        CRMORDERNO,
+      </if>
+      <if test="serianumber != null" >
+        SERIANUMBER,
+      </if>
+      <if test="crmstatus != null" >
+        CRMSTATUS,
+      </if>
+      <if test="crmresp != null" >
+        CRMRESP,
+      </if>
+      <if test="bustype != null" >
+        BUSTYPE,
+      </if>
+        CREATETIME,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      seq_p_callshow.nextVal,
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceno != null" >
+        #{deviceno,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usernumber != null" >
+        #{usernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="crmorderno != null" >
+        #{crmorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="serianumber != null" >
+        #{serianumber,jdbcType=VARCHAR},
+      </if>
+      <if test="crmstatus != null" >
+        #{crmstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="crmresp != null" >
+        #{crmresp,jdbcType=VARCHAR},
+      </if>
+      <if test="bustype != null" >
+        #{bustype,jdbcType=VARCHAR},
+      </if>
+         sysdate,
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshow" >
+    update P_CALLSHOW
+    <set >
+      <if test="openid != null" >
+        OPENID = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceno != null" >
+        DEVICENO = #{deviceno,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usernumber != null" >
+        USERNUMBER = #{usernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="crmorderno != null" >
+        CRMORDERNO = #{crmorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="crmstatus != null" >
+        CRMSTATUS = #{crmstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="crmresp != null" >
+        CRMRESP = #{crmresp,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=DATE},
+      </if>
+    </set>
+    where SERIANUMBER = #{serianumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sh.ideal.valueaddedserver.callshow.entity.PCallshow" >
+    update P_CALLSHOW
+    set OPENID = #{openid,jdbcType=VARCHAR},
+      DEVICENO = #{deviceno,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      USERNUMBER = #{usernumber,jdbcType=VARCHAR},
+      CRMORDERNO = #{crmorderno,jdbcType=VARCHAR},
+      SERIANUMBER = #{serianumber,jdbcType=VARCHAR},
+      CRMSTATUS = #{crmstatus,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=DATE}
+    where AUTOID = #{autoid,jdbcType=DECIMAL}
+  </update>
+</mapper>

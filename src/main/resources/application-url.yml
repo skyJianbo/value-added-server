@@ -1,0 +1,6 @@
+url:
+  WX_PRO_URL: http://10000.sh.189.cn/imr_interface/
+  CURR_PRO_URL: http://10000.sh.189.cn/valueadded/
+  BOUND_URL: http://10000.sh.189.cn/imr_interface/boundAction.do?action=QueryisBound&wxid=
+  #查询是否欠费接口
+  QUERYARREAURL: http://10.144.107.234:7001/wx-accept/queryArrea/
